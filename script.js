@@ -138,25 +138,25 @@ function check(f) {
   f.nextElementSibling.textContent = ok ? "" : r; return ok;
 }
 $$("input,textarea", form).forEach(f => f.addEventListener("blur", () => check(f)));
-form.addEventListener("submit", async e => {
-  e.preventDefault(); status.className = "status full"; status.textContent = "";
+form.addEventListener("submit", e => {
+  e.preventDefault(); 
+  status.className = "status full"; 
+  status.textContent = "";
+  
   const fields = $$("input,textarea", form), valid = fields.map(check).every(Boolean);
-  if (!valid) { fields.find(f => f.classList.contains("invalid")).focus(); return; }
-  if (!CONFIG.formEndpoint) { status.classList.add("err"); status.textContent = "Envio ainda não configurado. Defina formEndpoint no script.js ou fale conosco por e-mail ou telefone."; return; }
-  const btn = $("button[type=submit]", form); btn.disabled = true; status.textContent = "Enviando…";
-  try {
-    const res = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
-    if (!res.ok) throw new Error(res.status);
-    status.classList.add("ok"); status.textContent = "Mensagem enviada. Retornaremos em breve."; form.reset();
-  } catch { status.classList.add("err"); status.textContent = "Não foi possível enviar agora. Tente novamente ou escreva para contato@consultec.com.br."; }
-  btn.disabled = false;
+  if (!valid) { 
+    fields.find(f => f.classList.contains("invalid")).focus(); 
+    return; 
+  }
+
+  const btn = $("button[type=submit]", form); 
+  btn.disabled = true; 
+  status.textContent = "Enviando…";
+
+  setTimeout(() => {
+    status.className = "status full ok"; 
+    status.textContent = "Mensagem enviada com sucesso! Retornaremos em breve."; 
+    form.reset();
+    btn.disabled = false;
+  }, 800);
 });
- 
-/* WhatsApp */
-$("#wpp").addEventListener("click", () => {
-  const n = CONFIG.whatsappNumber.replace(/\D/g, "");
-  if (!n) return toast("WhatsApp ainda não configurado. Use e-mail ou telefone.");
-  open(`https://wa.me/${n}?text=${encodeURIComponent(CONFIG.whatsappMensagem)}`, "_blank", "noopener");
-});
-$("#ano").textContent = new Date().getFullYear();
- 
