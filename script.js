@@ -322,11 +322,3 @@ form.addEventListener("submit", e => {
     btn.disabled = false;
   }, 800);
 });
-
-/* WhatsApp */
-$("#wpp").addEventListener("click", () => {
-  const n = CONFIG.whatsappNumber.replace(/\D/g, "");
-  if (!n) return toast("WhatsApp ainda não configurado. Use e-mail ou telefone.");
-  open(`https://wa.me/${n}?text=${encodeURIComponent(CONFIG.whatsappMensagem)}`, "_blank", "noopener");
-});
-$("#ano").textContent = new Date().getFullYear();
