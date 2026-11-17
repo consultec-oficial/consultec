@@ -3,7 +3,7 @@
 /* ===== CONFIGURAÇÕES EDITÁVEIS ===== */
 const CONFIG = {
   // Número com DDI+DDD, só dígitos (ex.: "5515999999999"). Deixe vazio até confirmar o WhatsApp.
-  whatsappNumber: "",
+  whatsappNumber: "5514991145759",
   whatsappMensagem: "Olá! Gostaria de falar com a Consultec.",
   // URL de um serviço de formulários (Formspree, Getform etc.) ou backend próprio. Vazio = envio desativado.
   formEndpoint: "",
